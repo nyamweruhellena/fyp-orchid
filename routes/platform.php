@@ -14,6 +14,9 @@ use App\Orchid\Screens\FAQs\FAQsListScreen;
 use App\Orchid\Screens\News\NewsEditScreen;
 use App\Orchid\Screens\News\NewsListScreen;
 use App\Orchid\Screens\PlatformScreen;
+use App\Orchid\Screens\Properties\PropertieEditScreen;
+use App\Orchid\Screens\Properties\PropertiesListScreen;
+use App\Orchid\Screens\Reports\ReportsListScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -135,3 +138,26 @@ Route::screen('faq/{faq?}', FAQsEditScreen::class)
             ->push(__('Edit'), route('platform.faqs.faq'));
     });
 
+Route::screen('properties', PropertiesListScreen::class)
+    ->name('platform.properties')
+    ->breadcrumbs(function(Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push(__('Properties'),route('platform.properties'));
+    });
+
+Route::screen('properties-edit/{properties?}', PropertieEditScreen::class)
+    ->name('platform.properties.edit')
+    ->breadcrumbs(function(Trail $trail){
+        return $trail
+            ->parent('platform.properties')
+            ->push(_('Edit'), route('platform.properties.edit'));
+    });
+
+Route::screen('reports', ReportsListScreen::class)
+    ->name('platform.reports')
+    ->breadcrumbs(function(Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push(__('Reports'),route('platform.reports'));
+    });

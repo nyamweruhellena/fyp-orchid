@@ -23,6 +23,7 @@ class NewsEditScreen extends Screen
      *
      * @var string
      */
+    public $exists = false;
     public $name = 'Create News';
 
     public $description = 'Create news';

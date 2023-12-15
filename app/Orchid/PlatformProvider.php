@@ -37,7 +37,15 @@ class PlatformProvider extends OrchidServiceProvider
             Menu::make('Faqs')
                 ->icon('question')
                 ->route('platform.faqs'),
+
+            Menu::make('Properties')
+                ->icon('docs')
+                ->route('platform.properties'),
                 
+            Menu::make('Reports')
+                ->icon('docs')
+                ->route('platform.reports'),
+            
             Menu::make(__('Users'))
                 ->icon('user')
                 ->route('platform.systems.users')
