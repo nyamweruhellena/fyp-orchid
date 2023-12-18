@@ -10,7 +10,7 @@ class News extends Model
 {
     use AsSource;
 
-    protected $fillable=[
+    protected $fillable = [
         'title',
         'image_path',
         'content',

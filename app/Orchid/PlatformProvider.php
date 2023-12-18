@@ -30,22 +30,22 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('chart')
                 ->route('platform.index'),
 
-            Menu::make('News')
-                ->icon('docs')
-                ->route('platform.news'),
+            // Menu::make('News')
+            //     ->icon('docs')
+            //     ->route('platform.news'),
 
-            Menu::make('Faqs')
-                ->icon('question')
-                ->route('platform.faqs'),
+            // Menu::make('Faqs')
+            //     ->icon('question')
+            //     ->route('platform.faqs'),
 
             Menu::make('Properties')
                 ->icon('docs')
                 ->route('platform.properties'),
-                
+
             Menu::make('Reports')
                 ->icon('docs')
                 ->route('platform.reports'),
-            
+
             Menu::make(__('Users'))
                 ->icon('user')
                 ->route('platform.systems.users')
