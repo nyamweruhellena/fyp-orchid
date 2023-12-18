@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Report extends Model
 {
     use HasFactory;
-    protected $fillable=[
+    
+    protected $fillable = [
         'cost',
         'description',
         'status',

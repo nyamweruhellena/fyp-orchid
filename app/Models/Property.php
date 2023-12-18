@@ -9,7 +9,7 @@ use Orchid\Screen\AsSource;
 class Property extends Model
 {
     use AsSource;
-    protected $fillable=[
+    protected $fillable = [
         'name',
         'serial_no',
         'description',
