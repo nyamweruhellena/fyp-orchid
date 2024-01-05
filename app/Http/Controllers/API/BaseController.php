@@ -15,12 +15,12 @@ class BaseController extends Controller
      */
     public function sendResponse($result, $message, $status_code = 200)
     {
-        $response = [
-            'status' => "success",
-            'data'    => $result,
-            'message' => Config::get('customMessages.' . $message),
-            'status_code' => $status_code
-        ];
+        // $response = [
+        //     'status' => "success",
+        //     'data'    => $result,
+        //     'message' => Config::get('customMessages.' . $message),
+        //     'status_code' => $status_code
+        // ];
 
         return ($result->additional([
             'status' => 'success',
