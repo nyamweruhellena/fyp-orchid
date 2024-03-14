@@ -32,7 +32,8 @@ class SchedulesEditScreen extends Screen
     {
         $this->exists = $schedule_maintenance->exists;
 
-        if($this->exists) $this->description='Update Schedule ';
+        if($this->exists) $this->description='Update Schedule';
+
         return [
             'schedule_maintenance' => $schedule_maintenance
         ];
@@ -90,7 +91,7 @@ class SchedulesEditScreen extends Screen
                         ->title('Last maintenance')
                         ->required()
                         ->placeholder('Enter last maintenance date'),
-    
+
                     Input::make('schedule_maintenance.next_maintenance')
                         ->title('Next maintenance')
                         ->required()
@@ -104,7 +105,7 @@ class SchedulesEditScreen extends Screen
     {
 
 
-       $schedule_maintenance->fill($request->get('schedule_maintenance'))->save();
+        $schedule_maintenance->fill($request->get('schedule_maintenance'))->save();
 
         Alert::info('Schedule is created successfully');
 

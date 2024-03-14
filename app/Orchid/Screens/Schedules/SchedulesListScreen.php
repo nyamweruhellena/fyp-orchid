@@ -25,7 +25,7 @@ class SchedulesListScreen extends Screen
     public function query(): array
     {
         return [
-            'schedule_maintenances'=> ScheduleMaintenance::paginate()
+            'schedule_maintenances' => ScheduleMaintenance::paginate()
         ];
     }
 
