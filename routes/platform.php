@@ -20,6 +20,8 @@ use App\Orchid\Screens\PlatformScreen;
 use App\Orchid\Screens\Properties\PropertieEditScreen;
 use App\Orchid\Screens\Properties\PropertiesListScreen;
 use App\Orchid\Screens\Reports\ReportsListScreen;
+use App\Orchid\Screens\Schedules\SchedulesListScreen;
+use App\Orchid\Screens\Schedules\SchedulesEditScreen;
 use App\Orchid\Screens\Role\RoleEditScreen;
 use App\Orchid\Screens\Role\RoleListScreen;
 use App\Orchid\Screens\User\UserEditScreen;
@@ -112,7 +114,7 @@ Route::screen('news', NewsListScreen::class)
             ->push(__('News'),route('platform.news'));
     });
 
-// Home > news > edit 
+// Home > news > edit
 Route::screen('news-edit/{news?}', NewsEditScreen::class)
     ->name('platform.news.edit')
     ->breadcrumbs(function(Trail $trail){
@@ -181,7 +183,7 @@ Route::screen('college_blocks-edit/{college_blocks?}', CollegeBlocksEditScreen::
             ->push(_('Edit'), route('platform.college_blocks.edit'));
     });
 
-Route::screen('schedule_maintenances', ScheduleMaintenance::class)
+Route::screen('schedule_maintenances', SchedulesListScreen::class)
     ->name('platform.schedule_maintenances')
     ->breadcrumbs(function(Trail $trail){
         return $trail
@@ -189,7 +191,7 @@ Route::screen('schedule_maintenances', ScheduleMaintenance::class)
             ->push(__('Schedule'),route('platform.schedule_maintenances'));
     });
 
-Route::screen('schedule_maintenances-edit/{schedule_maintenances?}', ScheduleMaintenance::class)
+Route::screen('schedule_maintenances-edit/{schedule_maintenances?}', SchedulesEditScreen::class)
     ->name('platform.schedule_maintenances.edit')
     ->breadcrumbs(function(Trail $trail){
         return $trail

@@ -30,7 +30,7 @@ class SchedulesListLayout extends Table
             TD::make('property_id','Name')
                 ->render(function(ScheduleMaintenance $schedule_maintenance){
                     return Link::make($schedule_maintenance->property->name)
-                    ->route('platform.schedule_maintenances.edit',$schedule_maintenance);
+                    ->route('platform.schedule_maintenances.edit', $schedule_maintenance);
                 }),
 
             TD::make('last_maintenance','Last maintenance')
@@ -40,7 +40,7 @@ class SchedulesListLayout extends Table
 
             TD::make('next_maintenance','Next maintenance')
                 ->render(function(ScheduleMaintenance $schedule_maintenance){
-                    return $schedule_maintenance->next_maintenamce;
+                    return $schedule_maintenance->next_maintenance;
                 }),
 
             TD::make('status','Status')
