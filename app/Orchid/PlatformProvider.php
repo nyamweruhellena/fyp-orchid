@@ -46,6 +46,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('docs')
                 ->route('platform.reports'),
 
+            Menu::make('Blocks')
+                ->icon('docs')
+                ->route('platform.college_blocks'),
+
             Menu::make(__('Users'))
                 ->icon('user')
                 ->route('platform.systems.users')

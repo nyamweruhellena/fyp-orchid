@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReportResource;
+use App\Models\Property;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class ReportController extends Controller
+class ReportController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -29,7 +31,9 @@ class ReportController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'description' => 'required|string',
+            'property_name' => 'required',
+            'property_location' => 'nullable',
+            'description' => 'nullable|string',
             'cost' => 'nullable',
             'status' => 'nullable'
         ]);
@@ -39,9 +43,17 @@ class ReportController extends Controller
         }
 
         $report = new Report();
+
+        /**
+         * We want the user to input name, location and/or description
+         * From these parameters we want to get the property that is being referred to
+         */
+        $property = Property::where('name', 'LIKE', $request->property_name)->where('location', 'LIKE', $request->property_location)->first();
+
+        $report->property_id = $property->id; //
         $report->description = $request->description;
-        $report->cost = $request->cost;
-        $report->status = $request->status;
+        $report->cost = $request->cost ?? 0;
+        $report->status = $property->status;
         $report->save();
 
         return $this->sendResponse(new ReportResource($report), 'CREATE_SUCCESS');

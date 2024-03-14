@@ -5,20 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Report extends Model
+class ScheduleMaintenance extends Model
 {
     use HasFactory;
-    
     protected $fillable = [
         'property_id',
-        'name',
-        'cost',
-        'description',
         'status',
-        'date',
+        'last_maintenance',
+        'next_maintenamce'
     ];
-
     public function property(){
-       return $this->belongsTo(Property::class);
-    }
+        return $this->belongsTo(Property::class);
+     }
 }

@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Models\ScheduleMaintenance;
+use App\Orchid\Screens\CollegeBlocks\CollegeBlocksEditScreen;
+use App\Orchid\Screens\CollegeBlocks\CollegeBlocksListScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
 use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
@@ -160,4 +163,36 @@ Route::screen('reports', ReportsListScreen::class)
         return $trail
             ->parent('platform.index')
             ->push(__('Reports'),route('platform.reports'));
+    });
+
+Route::screen('college_blocks', CollegeBlocksListScreen::class)
+    ->name('platform.college_blocks')
+    ->breadcrumbs(function(Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push(__('Blocks'),route('platform.college_blocks'));
+    });
+
+Route::screen('college_blocks-edit/{college_blocks?}', CollegeBlocksEditScreen::class)
+    ->name('platform.college_blocks.edit')
+    ->breadcrumbs(function(Trail $trail){
+        return $trail
+            ->parent('platform.college_blocks')
+            ->push(_('Edit'), route('platform.college_blocks.edit'));
+    });
+
+Route::screen('schedule_maintenances', ScheduleMaintenance::class)
+    ->name('platform.schedule_maintenances')
+    ->breadcrumbs(function(Trail $trail){
+        return $trail
+            ->parent('platform.index')
+            ->push(__('Schedule'),route('platform.schedule_maintenances'));
+    });
+
+Route::screen('schedule_maintenances-edit/{schedule_maintenances?}', ScheduleMaintenance::class)
+    ->name('platform.schedule_maintenances.edit')
+    ->breadcrumbs(function(Trail $trail){
+        return $trail
+            ->parent('platform.schedule_maintenances')
+            ->push(_('Edit'), route('platform.schedule_maintenances.edit'));
     });

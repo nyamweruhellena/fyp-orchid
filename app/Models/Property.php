@@ -14,7 +14,11 @@ class Property extends Model
         'name',
         'serial_no',
         'description',
-        'location',
-        'status'
+        'type',
+        'status',
+        'college_block_id'
     ];
+    public function college_block(){
+        return $this->belongsTo(CollegeBlock::class);
+     }
 }

@@ -39,4 +39,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
  */
 
 Route::apiResource('properties', PropertyController::class)->middleware('withoutlinks');
-Route::post('order', [ReportController::class, 'create']);
+Route::post('reports', [ReportController::class, 'store']);

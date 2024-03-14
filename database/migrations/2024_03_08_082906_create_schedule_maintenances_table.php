@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateReportsTable extends Migration
+class CreateScheduleMaintenancesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreateReportsTable extends Migration
      */
     public function up()
     {
-        Schema::create('reports', function (Blueprint $table) {
+        Schema::create('schedule_maintenances', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->string('description');
-            $table->integer('cost');
+            $table->enum('status', ['maintained','not maintained']);
             $table->unsignedInteger('property_id');
-            $table->enum('status',['In progress','done','Not done']);
-            $table->string('date');
+            $table->string('last_maintenance');
+            $table->string('next_maintenance');
             $table->timestamps();
 
 
-            $table->foreign('property_id','property_report_fx')
+            $table->foreign('property_id','property_schedule_maintenance_fx')
             ->references('id')
             ->on('properties')
             ->onDelete('no action')
@@ -39,6 +37,6 @@ class CreateReportsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reports');
+        Schema::dropIfExists('schedule_maintenances');
     }
 }

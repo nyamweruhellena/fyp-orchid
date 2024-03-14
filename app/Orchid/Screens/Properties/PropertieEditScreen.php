@@ -35,7 +35,7 @@ class PropertieEditScreen extends Screen
     {
         $this->exists = $property->exists;
 
-        if($this->exists) $this->description='Update news ';
+        if($this->exists) $this->description='Update Property ';
         return [
             'property' => $property
         ];
@@ -87,13 +87,26 @@ class PropertieEditScreen extends Screen
                         ->placeholder('Enter property serial number'),
                 ]),
 
-                TextArea::make('property.description')
+                Group::make([
+                    TextArea::make('property.description')
                         ->title('Description')
                         // ->required()
                         ->placeholder('Enter property description'),
 
+                    Select::make('property.type')
+                        ->options([
+                                'electrical' => 'Electrical',
+                                'electronics' => 'Electronics',
+                                'computing' => 'Computing',
+                                'furniture' => 'Furniture',
+                                'plumbing' => 'Plumbing'
+                            ])
+                        ->title('Select type'),
+                    
+                ]),
+
                 Group::make([
-                    Input::make('property.location')
+                    Input::make('property.college_block.name')
                         ->title('Location')
                         // ->required()
                         ->placeholder('Enter property location'),

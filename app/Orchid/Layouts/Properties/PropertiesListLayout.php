@@ -42,6 +42,11 @@ class PropertiesListLayout extends Table
                 ->render(function(Property $property){
                     return $property->status;
                 }),
+
+            TD::make('type','Type')
+                ->render(function(Property $property){
+                    return $property->type;
+                }),
         ];
     }
 }
