@@ -46,7 +46,7 @@ class PlatformScreen extends Screen
     {
         return [
             Link::make('Go to Site')
-                ->href('https://hype.co.tz')
+                ->href('#')
                 ->icon('globe-alt')
                 ->target('_blank'),
         ];
