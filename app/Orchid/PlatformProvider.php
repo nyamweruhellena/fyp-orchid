@@ -50,6 +50,10 @@ class PlatformProvider extends OrchidServiceProvider
                 ->icon('docs')
                 ->route('platform.college_blocks'),
 
+            Menu::make('Schedule')
+                ->icon('docs')
+                ->route('platform.schedule_maintenances'),
+
             Menu::make(__('Users'))
                 ->icon('user')
                 ->route('platform.systems.users')
