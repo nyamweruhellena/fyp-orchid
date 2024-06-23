@@ -61,7 +61,7 @@ class ReportController extends BaseController
 
             $property = Property::firstOrCreate([
                 'name' => $request->property_name,
-                'serial_no' => $request->property_name ?? generateSerialNumber(),
+                'serial_no' => $request->serial_no ?? generateSerialNumber(),
                 'college_block_id' => $location->id,
             ]);
 
