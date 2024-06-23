@@ -53,7 +53,7 @@ class ReportController extends BaseController
         $report->property_id = $property->id; //
         $report->description = $request->description;
         $report->cost = $request->cost ?? 0;
-        $report->status = $property->status;
+        $report->status = $property->status ?? 'pending';
         $report->save();
 
         return $this->sendResponse(new ReportResource($report), 'CREATE_SUCCESS');

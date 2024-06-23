@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Orchid\Platform\Models\User as Authenticatable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
+    use HasApiTokens;
     /**
      * The attributes that are mass assignable.
      *
@@ -16,6 +18,7 @@ class User extends Authenticatable
         'email',
         'password',
         'permissions',
+        'custom_role_id',
     ];
 
     /**
@@ -63,4 +66,9 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+    public function customRole()
+    {
+        return $this->belongsTo(CustomRole::class);
+    }
 }
