@@ -19,16 +19,16 @@ class CreateReportsTable extends Migration
             $table->string('description');
             $table->integer('cost');
             $table->unsignedInteger('property_id');
-            $table->enum('status',['In progress','done','Not done']);
+            $table->enum('status', ['In progress', 'done', 'Not done']);
             $table->string('date');
             $table->timestamps();
 
 
-            $table->foreign('property_id','property_report_fx')
-            ->references('id')
-            ->on('properties')
-            ->onDelete('no action')
-            ->onUpdate('no action');
+            $table->foreign('property_id', 'property_report_fx')
+                ->references('id')
+                ->on('properties')
+                ->onDelete('no action')
+                ->onUpdate('no action');
         });
     }
 

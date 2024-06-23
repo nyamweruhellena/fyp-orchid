@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\API\BaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ReportResource;
+use App\Models\CollegeBlock;
 use App\Models\Property;
 use App\Models\Report;
 use Illuminate\Http\Request;
@@ -19,7 +20,13 @@ class ReportController extends BaseController
      */
     public function index()
     {
-        //
+        $reports = Report::latest('updated_at')->paginate();
+
+        if (count($reports) == 0) {
+            return $this->sendError('RETRIEVE_MANY_FAILED', 'No reports found', 404);
+        } else {
+            return $this->sendResponse(ReportResource::collection($reports), 'RETRIEVE_SUCCESS');
+        }
     }
 
     /**
@@ -42,22 +49,35 @@ class ReportController extends BaseController
             return $this->sendError('VALIDATION_ERROR', $validator->errors()->all(), 422);
         }
 
-        $report = new Report();
 
         /**
          * We want the user to input name, location and/or description
          * From these parameters we want to get the property that is being referred to
+         *
+         * Note the location is linked to table college blocks and not the property table
          */
-        $property = Property::where('name', 'LIKE', $request->property_name)->where('location', 'LIKE', $request->property_location)->first();
+        try {
+            $location = CollegeBlock::firstOrCreate(['name' => $request->property_location]);
 
-        $report->property_id = $property->id; //
-        $report->description = $request->description;
-        $report->cost = $request->cost ?? 0;
-        $report->status = $property->status ?? 'pending';
-        $report->save();
+            $property = Property::firstOrCreate([
+                'name' => $request->property_name,
+                'serial_no' => $request->property_name ?? generateSerialNumber(),
+                'college_block_id' => $location->id,
+            ]);
 
-        return $this->sendResponse(new ReportResource($report), 'CREATE_SUCCESS');
+            $report = new Report();
 
+            $report->property_id = $property->id; //
+            $report->name = $property->name;
+            $report->description = $request->description;
+            $report->cost = $request->cost ?? 0;
+            $report->status = 'Not done';
+            $report->save();
+
+            return $this->sendResponse(new ReportResource($report), 'CREATE_SUCCESS');
+        } catch (\Throwable $th) {
+            return $this->sendError('CREATE_FAILED', $th->getMessage(), 500);
+        }
     }
 
     /**

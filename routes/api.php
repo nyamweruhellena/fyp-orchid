@@ -48,4 +48,6 @@ Route::get('/test', function () {
 Route::post('/login', [AuthController::class, 'login'])->name('login.api');
 
 Route::apiResource('properties', PropertyController::class)->middleware('withoutlinks');
-Route::post('reports', [ReportController::class, 'store']);
+
+// REPORTS API
+Route::apiResource('reports', ReportController::class);
