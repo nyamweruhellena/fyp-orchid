@@ -14,6 +14,7 @@ class ReportResource extends JsonResource
      */
     public function toArray($request)
     {
+        //uhuni
         return [
             'id' => $this->id,
             'property_name' => $this->property->name,
