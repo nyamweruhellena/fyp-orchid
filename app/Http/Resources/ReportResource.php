@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use DateTime;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ReportResource extends JsonResource
@@ -14,14 +15,14 @@ class ReportResource extends JsonResource
      */
     public function toArray($request)
     {
-        //uhuni
+        $date = new DateTime($this->created_at);
         return [
             'id' => $this->id,
             'property_name' => $this->property->name,
             'property_location' => $this->property->collegeBlock->name,
             'serial_number' => $this->property->serial_no,
             'description' => $this->description,
-            'reported_on' => $this->created_at,
+            'reported_on' => $date->format('Y-m-d'),
             'status' => $this->status,
         ];
     }
