@@ -29,8 +29,9 @@ return [
     'LOGIN_SUCCESS' => 'Login successful',
     'LOGIN_FAILED' => 'Login failed',
     'NOT_LOGGED_IN' => 'User not logged in',
+    'USER_NOT_FOUND' => 'User not found',
     'WRONG_CREDENTIALS' => 'Credentials do not match our records',
-    'PASSWORD_MISMATCH'=> 'Current password entered does not match records',
+    'PASSWORD_MISMATCH' => 'Current password entered does not match records',
 
     'PAYMENT_SUCCESS' => 'Payment successful',
     'PAYMENT_FAILED' => 'Payment failed',

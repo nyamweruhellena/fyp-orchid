@@ -9,7 +9,7 @@ use Orchid\Screen\AsSource;
 class Property extends Model
 {
     use AsSource;
-    
+
     protected $fillable = [
         'name',
         'serial_no',
@@ -18,7 +18,8 @@ class Property extends Model
         'status',
         'college_block_id'
     ];
-    public function college_block(){
+
+    public function collegeBlock(){
         return $this->belongsTo(CollegeBlock::class);
-     }
+    }
 }
