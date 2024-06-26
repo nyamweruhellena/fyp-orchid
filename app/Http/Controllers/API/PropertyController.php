@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Resources\PropertyResource;
+use App\Models\CustomRole;
 use App\Models\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Models\User;
 
 class PropertyController extends BaseController
 {
@@ -56,15 +58,22 @@ class PropertyController extends BaseController
         return $this->sendResponse(new PropertyResource($property), 'CREATE_SUCCESS');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+   
+    public function getOfficer()
     {
-        //
+        $properties = Property::latest('updated_at')->paginate();
+        $role_id = CustomRole::where("name","Officer")->first()->id;
+        $user = User::where('role_id',$role_id)->first();
+        return (object)[
+            'user' => [
+                            'id' => $user->id,
+                            'name' => $user->name,
+                            'email' => $user->email,
+                            'phone' => $user->phone,
+                            'role' => $user->customRole->name,
+                        ],
+            "reports" => PropertyResource::collection($properties)
+        ];
     }
 
     /**
