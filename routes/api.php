@@ -51,3 +51,4 @@ Route::apiResource('properties', PropertyController::class)->middleware('without
 
 // REPORTS API
 Route::apiResource('reports', ReportController::class);
+Route::apiResource('officer', [PropertyController::class,'getOfficer']);
