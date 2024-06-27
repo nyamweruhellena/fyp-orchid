@@ -42,6 +42,7 @@ class ReportController extends BaseController
         $validator = Validator::make($request->all(), [
             'property_name' => 'required',
             'property_location' => 'nullable',
+            'user_id' => 'required',
             'description' => 'nullable|string',
             'cost' => 'nullable',
             'status' => 'nullable'
@@ -74,6 +75,7 @@ class ReportController extends BaseController
             $report->description = $request->description;
             $report->cost = $request->cost ?? 0;
             $report->status = 'Not done';
+            $report->user_id = $request->user_id;
             $report->save();
 
             return $this->sendResponse(new ReportResource($report), 'CREATE_SUCCESS');
