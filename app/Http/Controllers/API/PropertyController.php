@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Resources\PropertyResource;
+use App\Http\Resources\ReportResource;
 use App\Models\CustomRole;
 use App\Models\Property;
+use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\User;
@@ -61,9 +62,9 @@ class PropertyController extends BaseController
    
     public function getOfficer()
     {
-        $properties = Property::latest('updated_at')->paginate();
+        $properties = Report::latest('updated_at')->paginate();
         $role_id = CustomRole::where("name","Officer")->first()->id;
-        $user = User::where('role_id',$role_id)->first();
+        $user = User::where('custom_role_id',$role_id)->first();
         return (object)[
             'user' => [
                             'id' => $user->id,
@@ -72,7 +73,7 @@ class PropertyController extends BaseController
                             'phone' => $user->phone,
                             'role' => $user->customRole->name,
                         ],
-            "reports" => PropertyResource::collection($properties)
+            "reports" => ReportResource::collection($properties)
         ];
     }
 
