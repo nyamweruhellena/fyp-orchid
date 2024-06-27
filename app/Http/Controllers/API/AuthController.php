@@ -111,10 +111,8 @@ class AuthController extends Controller
         $user->save();
 
         $role_id = CustomRole::where('name',$request->name)->first()->id;
-DB::table('role_users')->insert([
-            "user_id" => $user->id,
-            "role_id" => $role_id,
-        ]);
+        $user->custom_role_id = $role_id;
+        $user->save();
        
         // var_dump($user); die();
 
