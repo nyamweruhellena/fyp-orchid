@@ -46,6 +46,7 @@ Route::get('/test', function () {
 
 // AUTH API
 Route::post('/login', [AuthController::class, 'login'])->name('login.api');
+Route::post('/send_sms', [ReportController::class, 'send_sms'])->name('send_sms.api');
 Route::post('/register', [AuthController::class, 'register'])->name('register.api');
 
 Route::apiResource('properties', PropertyController::class)->middleware('withoutlinks');
