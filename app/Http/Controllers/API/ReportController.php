@@ -10,6 +10,7 @@ use App\Models\Property;
 use App\Models\Report;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Integration\Beem\BeemSMSController;
 
 class ReportController extends BaseController
 {
@@ -82,6 +83,10 @@ class ReportController extends BaseController
         } catch (\Throwable $th) {
             return $this->sendError('CREATE_FAILED', $th->getMessage(), 500);
         }
+    }
+    public function sendSms(Request $request){
+            $beem = new BeemSMSController();
+            $beem->send("255756808677",$request->message,"1");
     }
 
     /**
