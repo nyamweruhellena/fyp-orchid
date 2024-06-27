@@ -110,7 +110,7 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $role_id = CustomRole::where('name',$request->name)->first()->id;
+        $role_id = CustomRole::where('name',$request->role)->first()->id;
         $user->custom_role_id = $role_id;
         $user->save();
        
