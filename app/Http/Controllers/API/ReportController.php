@@ -18,9 +18,11 @@ class ReportController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($user_id=null)
     {
-        $reports = Report::latest('updated_at')->paginate();
+        $reports = Report::when($user_id, function($query,$user_id){
+            return $query->where('user_id',$user_id);
+        })->latest('updated_at')->paginate();
 
         if (count($reports) == 0) {
             return $this->sendError('RETRIEVE_MANY_FAILED', 'No reports found', 404);
