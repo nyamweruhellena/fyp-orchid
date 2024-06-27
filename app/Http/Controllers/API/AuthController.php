@@ -9,6 +9,7 @@ use App\Models\CustomRole;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use App\Models\RoleUser;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
@@ -105,17 +106,16 @@ class AuthController extends Controller
         // Check if user exists
         $user = new User();
         $user->name = $request->name;
-        $user->emai = $request->email;
+        $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->role = $request->role;
         $user->save();
 
         $role_id = CustomRole::where('name',$request->name)->first()->id;
-
-        $roleUser= new RoleUser();
-        $roleUser->user_id = $user->id;
-        $roleUser->role_id = $role_id;
-        $roleUser->save();
+DB::table('role_users')->insert([
+            "user_id" => $user->id,
+            "role_id" => $role_id,
+        ]);
+       
         // var_dump($user); die();
 
         // If user does not exist return error message
