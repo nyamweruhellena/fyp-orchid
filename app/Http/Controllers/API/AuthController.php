@@ -9,7 +9,7 @@ use App\Models\CustomRole;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
 use App\Models\RoleUser;
-
+use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     /**
@@ -106,7 +106,7 @@ class AuthController extends Controller
         $user = new User();
         $user->name = $request->name;
         $user->emai = $request->email;
-        $user->password = $request->password;
+        $user->password = Hash::make($request->password);
         $user->role = $request->role;
         $user->save();
 
@@ -126,7 +126,7 @@ class AuthController extends Controller
             ], 404);
         } else {
             // Check if password matches
-            if (password_verify($request->password, $user->password)) {
+          
                 // Create user token
                 $token = $user->createToken('authToken')->accessToken;
 
@@ -145,13 +145,6 @@ class AuthController extends Controller
                         'token' => $token
                     ]
                 ], 200);
-            } else {
-                // Return error message if password does not match
-                return response()->json([
-                    'success' => false,
-                    'message' => Config::get('customMessages.WRONG_CREDENTIALS')
-                ], 401);
-            }
         }
     }
 
