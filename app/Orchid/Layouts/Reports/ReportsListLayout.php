@@ -57,10 +57,10 @@ class ReportsListLayout extends Table
                     return $report->status;
                 }),
 
-            TD::make('cost','Cost')
-                ->render(function(Report $report){
-                    return $report->cost;
-                }),
+            // TD::make('cost','Cost')
+            //     ->render(function(Report $report){
+            //         return $report->cost;
+            //     }),
 
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
