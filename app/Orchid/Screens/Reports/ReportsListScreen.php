@@ -49,7 +49,8 @@ class ReportsListScreen extends Screen
         return [
             Button::make('Download')
                 ->icon('cloud-download')
-                ->method('downloadReportsV2'),
+                ->method('downloadAllReports')
+                ->rawClick(),
             // ModalToggle::make('Add cost')
             // ->modal('Update Cost')
             // ->method('addCost')
@@ -145,10 +146,9 @@ class ReportsListScreen extends Screen
             $row_string = '<tr class="border-b border-gray-200 hover:bg-gray-100">
                 <td class="py-3 px-6 text-left whitespace-nowrap">' . $report->property->name . '</td>
                 <td class="py-3 px-6 text-left">' . $report->name . '</td>
-                <td class="py-3 px-6 text-left">' . $report->cost . '</td>
                 <td class="py-3 px-6 text-left">' . $report->description . '</td>
                 <td class="py-3 px-6 text-left">' . $report->status . '</td>
-                <td class="py-3 px-6 text-left">' . $report->date . '</td>
+                <td class="py-3 px-6 text-left">' . $report->created_at->toFormattedDateString() . '</td>
             </tr>';
             array_push($rows, $row_string);
         }
@@ -187,7 +187,6 @@ class ReportsListScreen extends Screen
                     <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
                         <th class="py-3 px-6 text-left">Property</th>
                         <th class="py-3 px-6 text-left">Name</th>
-                        <th class="py-3 px-6 text-left">Cost</th>
                         <th class="py-3 px-6 text-left">Description</th>
                         <th class="py-3 px-6 text-left">Status</th>
                         <th class="py-3 px-6 text-left">Date</th>
@@ -199,18 +198,9 @@ class ReportsListScreen extends Screen
             </table>
         </div>';
 
-        dd($html_view);
-
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($html_view);
 
         return $pdf->stream('all_reports.pdf');
-    }
-
-    public function downloadReportsV2()
-    {
-        $data = ['title' => 'domPDF in Laravel 10'];
-        $pdf = Pdf::loadView('pdf.document', $data);
-        // return $pdf->download('document.pdf');
     }
 }
