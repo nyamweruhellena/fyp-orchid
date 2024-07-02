@@ -52,5 +52,5 @@ Route::post('/register', [AuthController::class, 'register'])->name('register.ap
 Route::apiResource('properties', PropertyController::class)->middleware('withoutlinks');
 
 // REPORTS API
-Route::apiResource('reports/{user_id?}', ReportController::class);
+// Route::apiResource('reports/{user_id?}', ReportController::class);
 Route::get('officer/{id?}', [PropertyController::class,'getOfficer']);
