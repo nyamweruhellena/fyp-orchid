@@ -11,6 +11,7 @@ use Orchid\Screen\Actions\Button;
 use Orchid\Support\Facades\Layout;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Actions\ModalToggle;
+use Orchid\Screen\Fields\DateRange;
 
 class ReportsListLayout extends Table
 {
@@ -23,7 +24,21 @@ class ReportsListLayout extends Table
      * @var string
      */
     protected $target = 'reports';
-
+    // /**
+    //  * Views that should be included in the layout.
+    //  *
+    //  * @return array
+    //  */
+    // public function fields(): array
+    // {
+    //     return [
+    //         DateRange::make('dateRange')
+    //             ->title('Date Range')
+    //             ->placeholder('Select date range')
+    //             ->enableTime()
+    //             ->required(),
+    //     ];
+    // }
     /**
      * Get the table cells to be displayed.
      *
@@ -49,7 +64,7 @@ class ReportsListLayout extends Table
 
             TD::make('date','Date')
                 ->render(function(Report $report){
-                    return $report->date;
+                    return $report->created_at->toFormattedDateString();
                 }),
 
             TD::make('status','Status')
@@ -57,10 +72,10 @@ class ReportsListLayout extends Table
                     return $report->status;
                 }),
 
-            TD::make('cost','Cost')
-                ->render(function(Report $report){
-                    return $report->cost;
-                }),
+            // TD::make('cost','Cost')
+            //     ->render(function(Report $report){
+            //         return $report->cost;
+            //     }),
 
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
@@ -70,15 +85,15 @@ class ReportsListLayout extends Table
                         ->icon('options-vertical')
                         ->list([
 
-                            ModalToggle::make('Add cost')
-                                ->modal('Update Cost')
-                                ->method('addCost')
-                                ->asyncParameters([
-                                    'id' => $report->id,
-                                    'property_id' => $report->property_id,
-                                    'description' => $report->description
-                                ])
-                                ->icon('pencil'),
+                            // ModalToggle::make('Add cost')
+                            //     ->modal('Update Cost')
+                            //     ->method('addCost')
+                            //     ->asyncParameters([
+                            //         'id' => $report->id,
+                            //         'property_id' => $report->property_id,
+                            //         'description' => $report->description
+                            //     ])
+                            //     ->icon('pencil'),
 
                             ModalToggle::make('Update status')
                                 ->modal('Update Status')
@@ -100,4 +115,20 @@ class ReportsListLayout extends Table
                 }),
         ];
     }
+
+
+    // public function query($query): array
+    // {
+    //     $dateRange = $query->get('dateRange', []);
+
+    //     if (!empty($dateRange)) {
+    //         $query = Report::whereBetween('created_at', [$dateRange['start'], $dateRange['end']]);
+    //     } else {
+    //         $query = Report::query();
+    //     }
+
+    //     return [
+    //         'reports' => $query->get(),
+    //     ];
+    // }
 }
