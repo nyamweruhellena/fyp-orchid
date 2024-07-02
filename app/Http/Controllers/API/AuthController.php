@@ -68,7 +68,7 @@ class AuthController extends Controller
                             'name' => $user->name,
                             'email' => $user->email,
                             'phone' => $user->phone,
-                            'role' => $user->customRole->name,
+                            'role' => $user->customRole?$user->customRole->name:"",
                         ],
                         'token' => $token
                     ]
