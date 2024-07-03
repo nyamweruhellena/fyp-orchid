@@ -3,6 +3,7 @@
 namespace App\Orchid\Screens\Reports;
 
 use App\Models\Report;
+use App\Orchid\Layouts\ReportFiltersLayout;
 use Orchid\Screen\Screen;
 use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Link;
@@ -35,7 +36,10 @@ class ReportsListScreen extends Screen
     public function query(): array
     {
         return [
-            'reports' => Report::latest('updated_at')->paginate()
+            'reports' => Report::with('property')
+                ->filters()
+                ->filtersApplySelection(ReportFiltersLayout::class)
+                ->paginate(),
         ];
     }
 
@@ -66,6 +70,7 @@ class ReportsListScreen extends Screen
     public function layout(): array
     {
         return [
+            ReportFiltersLayout::class,
             Layout::modal('Update Cost', [
                 Layout::rows([
                     Input::make('report.cost')
