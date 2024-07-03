@@ -109,25 +109,24 @@ class ReportController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
         $validator = Validator::make($request->all(), [
-            'status' => 'required|in:done,not_done,in_progress',
+            'status' => 'required|in:done,Not done,In progress,Fixed',
         ]);
-    
+
         if ($validator->fails()) {
             return $this->sendError('VALIDATION_ERROR', $validator->errors()->all(), 422);
         }
-    
+
         try {
             $report = Report::findOrFail($id);
-    
+
             // Update only if the status is provided in the request
             if ($request->has('status')) {
                 $report->status = $request->status;
             }
-    
+
             $report->save();
-    
+
             return $this->sendResponse(new ReportResource($report), 'UPDATE_SUCCESS');
         } catch (\Throwable $th) {
             return $this->sendError('UPDATE_FAILED', $th->getMessage(), 500);

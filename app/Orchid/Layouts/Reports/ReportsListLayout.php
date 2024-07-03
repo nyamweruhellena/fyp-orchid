@@ -24,21 +24,7 @@ class ReportsListLayout extends Table
      * @var string
      */
     protected $target = 'reports';
-    // /**
-    //  * Views that should be included in the layout.
-    //  *
-    //  * @return array
-    //  */
-    // public function fields(): array
-    // {
-    //     return [
-    //         DateRange::make('dateRange')
-    //             ->title('Date Range')
-    //             ->placeholder('Select date range')
-    //             ->enableTime()
-    //             ->required(),
-    //     ];
-    // }
+
     /**
      * Get the table cells to be displayed.
      *
