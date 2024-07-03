@@ -131,4 +131,39 @@ class ReportsListLayout extends Table
     //         'reports' => $query->get(),
     //     ];
     // }
+    /**
+     * Views that should be included in the layout.
+     *
+     * @return array
+     */
+    public function fields(): array
+    {
+        return [
+            DateRange::make('dateRange')
+                ->title('Date Range')
+                ->placeholder('Select date range')
+                ->enableTime()
+                ->value(['start' => now()->subDays(7), 'end' => now()]), // Default date range
+        ];
+    }
+
+    /**
+     * Apply filters and query modifications.
+     *
+     * @param mixed $query
+     * @return array
+     */
+    public function query($query): array
+    {
+        $dateRange = $this->query->get('dateRange', []);
+
+        // Apply date range filtering if provided
+        if (!empty($dateRange['start']) && !empty($dateRange['end'])) {
+            $query->whereBetween('created_at', [$dateRange['start'], $dateRange['end']]);
+        }
+
+        return [
+            'reports' => $query->latest()->get(),
+        ];
+    }
 }
