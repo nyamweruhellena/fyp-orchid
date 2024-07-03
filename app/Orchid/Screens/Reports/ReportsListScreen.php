@@ -205,5 +205,6 @@ class ReportsListScreen extends Screen
             return $pdf->stream('all_reports.pdf');
         } catch (\Exception $e) {
             return response()->json(['error' => 'PDF generation failed: ' . $e->getMessage()], 500);
-        }}
+        }
+    }
 }
