@@ -201,6 +201,9 @@ class ReportsListScreen extends Screen
         $pdf = App::make('dompdf.wrapper');
         $pdf->loadHTML($html_view);
 
-        return $pdf->stream('all_reports.pdf');
-    }
+        try {
+            return $pdf->stream('all_reports.pdf');
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'PDF generation failed: ' . $e->getMessage()], 500);
+        }
 }
