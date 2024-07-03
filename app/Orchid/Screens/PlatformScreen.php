@@ -16,14 +16,14 @@ class PlatformScreen extends Screen
      *
      * @var string
      */
-    public $name = 'Get Started';
+    public $name = 'CPMS Dashboard';
 
     /**
      * Display header description.
      *
      * @var string
      */
-    public $description = 'Welcome to your Orchid application.';
+    public $description = 'Welcome to CPMS Dashboard!';
 
     /**
      * Query data.

@@ -35,7 +35,7 @@ class ReportsListScreen extends Screen
     public function query(): array
     {
         return [
-            'reports' => Report::paginate()
+            'reports' => Report::latest('updated_at')->paginate()
         ];
     }
 
