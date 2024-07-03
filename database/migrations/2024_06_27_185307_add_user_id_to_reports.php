@@ -14,7 +14,7 @@ class AddUserIdToReports extends Migration
     public function up()
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->bigIncrements('user_id')->nullable();
         });
     }
 
