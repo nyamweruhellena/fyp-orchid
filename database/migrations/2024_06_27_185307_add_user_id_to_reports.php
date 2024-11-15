@@ -14,7 +14,7 @@ class AddUserIdToReports extends Migration
     public function up()
     {
         Schema::table('reports', function (Blueprint $table) {
-            $table->bigIncrements('user_id')->nullable();
+            $table->unsignedBigInteger('user_id')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddUserIdToReports extends Migration
     public function down()
     {
         Schema::table('reports', function (Blueprint $table) {
-            //
+            $table->dropColumn('user_id');
         });
     }
 }

@@ -8,9 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Models\CustomRole;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Validator;
-use App\Models\RoleUser;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 class AuthController extends Controller
 {
     /**
@@ -68,7 +67,7 @@ class AuthController extends Controller
                             'name' => $user->name,
                             'email' => $user->email,
                             'phone' => $user->phone,
-                            'role' => $user->customRole?$user->customRole->name:"",
+                            'role' => $user->customRole ? $user->customRole->name : "",
                         ],
                         'token' => $token
                     ]
@@ -110,10 +109,10 @@ class AuthController extends Controller
         $user->password = Hash::make($request->password);
         $user->save();
 
-        $role_id = CustomRole::where('name',$request->role)->first()->id;
+        $role_id = CustomRole::where('name', $request->role)->first()->id;
         $user->custom_role_id = $role_id;
         $user->save();
-       
+
         // var_dump($user); die();
 
         // If user does not exist return error message
@@ -124,25 +123,25 @@ class AuthController extends Controller
             ], 404);
         } else {
             // Check if password matches
-          
-                // Create user token
-                $token = $user->createToken('authToken')->accessToken;
 
-                // Return success message with token
-                return response()->json([
-                    'success' => true,
-                    'message' => Config::get('customMessages.LOGIN_SUCCESS'),
-                    'data' => [
-                        'user' => [
-                            'id' => $user->id,
-                            'name' => $user->name,
-                            'email' => $user->email,
-                            'phone' => $user->phone,
-                            'role' => $user->customRole->name,
-                        ],
-                        'token' => $token
-                    ]
-                ], 200);
+            // Create user token
+            $token = $user->createToken('authToken')->accessToken;
+
+            // Return success message with token
+            return response()->json([
+                'success' => true,
+                'message' => Config::get('customMessages.LOGIN_SUCCESS'),
+                'data' => [
+                    'user' => [
+                        'id' => $user->id,
+                        'name' => $user->name,
+                        'email' => $user->email,
+                        'phone' => $user->phone,
+                        'role' => $user->customRole->name,
+                    ],
+                    'token' => $token
+                ]
+            ], 200);
         }
     }
 
